@@ -35,9 +35,9 @@ function Home() {
 
     return (
         <>
-            <div className="container">
+            <div className="home-container">
                 <div className="title">
-                    <h2>Last Movies</h2>
+                    <h2 className='home-h2'>Last Movies</h2>
                 </div>
                 <div className="grid-movie">
                     {movie.map(movie => (
@@ -70,9 +70,9 @@ function Home() {
                 </div>
             </div>
 
-            <div className="container">
+            <div className="home-container">
                 <div className="title">
-                    <h2>More Watching</h2>
+                    <h2 className='home-h2'>More Watching</h2>
                 </div>
                 <div className="grid-movie">
                     {Array.isArray(moreWatch) && moreWatch.map(movie => (

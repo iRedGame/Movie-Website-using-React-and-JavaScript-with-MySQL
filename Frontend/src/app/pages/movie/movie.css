@@ -28,7 +28,7 @@
         color: white;
     }
 
-    & .container {
+    & .movie-container {
         width: 60%;
         height: auto;
         position: relative;

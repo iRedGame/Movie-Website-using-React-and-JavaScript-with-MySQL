@@ -95,7 +95,7 @@ function Movie() {
                 <h1>Your Move is Here </h1>
                 <h3>TITLE: {movie.title}</h3>
 
-                <div className='container' ref={playerRef}>
+                <div className='movie-container' ref={playerRef}>
                     <video
                         src={movie.video}
                         ref={videoRef}

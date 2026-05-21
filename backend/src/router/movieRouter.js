@@ -5,22 +5,22 @@ import { getMovies, getMoviesId ,
          createMovie, getMoreWatch,
          getShowMoreWatch, getLastAdd } from '../config/router.js'
 
-const router = express.Router()
+const routerMovie = express.Router()
 
-router.post('/movies', upload.fields([
+routerMovie.post('/movies', upload.fields([
             {name: 'video', maxCount: 1},
             {name: 'image', maxCount: 1}
         ]),
         createMovie)
 
-router.get('/movies', getMovies)
+routerMovie.get('/movies', getMovies)
 
-router.get('/movies/views', getShowMoreWatch)
+routerMovie.get('/movies/views', getShowMoreWatch)
 
-router.get('/movies/lastAdd', getLastAdd)
+routerMovie.get('/movies/lastadd', getLastAdd)
 
-router.get('/movies/:id', getMoviesId)
+routerMovie.get('/movies/:id', getMoviesId)
 
-router.put('/movies/views/:id', getMoreWatch)
+routerMovie.put('/movies/views/:id', getMoreWatch)
 
-export default router
+export default routerMovie
