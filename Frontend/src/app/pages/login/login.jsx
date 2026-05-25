@@ -1,4 +1,5 @@
 
+import { useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import api from '../../../services/api.js'
 import './login.css'
@@ -6,14 +7,19 @@ import './login.css'
 function Login() {
     const [ email, setEmail ] = useState([])
     const [ password, setPassword ] = useState([])
+    const navigate = useNavigate()
 
     async function postLogin() {
         try {
-            const user = await api.post('/validUser', {
+            const validUser = await api.post('/validUser', {
                 email: email,
                 password: password
             })
-            console.log(user.data)
+
+            if(validUser.data.token) {
+                localStorage.setItem('token', validUser.data.token)
+                navigate('/')
+            }
         } catch (error) {
             console.log(error.message)
         }

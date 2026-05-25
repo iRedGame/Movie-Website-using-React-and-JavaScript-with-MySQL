@@ -1,9 +1,9 @@
 import express from 'express'
-import db from '../config/db.js'
-import upload from '../config/multer.js'
+import db from '../controllers/db.js'
+import upload from '../controllers/multer.js'
 import { getMovies, getMoviesId ,
          createMovie, getMoreWatch,
-         getShowMoreWatch, getLastAdd } from '../config/router.js'
+         getShowMoreWatch, getLastAdd } from '../controllers/router.js'
 
 const routerMovie = express.Router()
 

@@ -1,4 +1,5 @@
 
+import { useNavigate } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import api from '../../../services/api.js'
 import './login.css'
@@ -8,6 +9,7 @@ function CreateUser() {
     const email = useRef()
     const password = useRef()
     const name = useRef()
+    const navigate = useNavigate()
 
     async function postUser() {
         try {
@@ -16,6 +18,7 @@ function CreateUser() {
                 email: email.current.value,
                 password: password.current.value
             })
+            navigate('/created')
         } catch (error) {
             console.log(error.message)
         }

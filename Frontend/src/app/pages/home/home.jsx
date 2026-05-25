@@ -9,6 +9,7 @@ function Home() {
 
     const [movie, setMovie] = useState([])
     const [moreWatch, setMoreWatch] = useState([])
+    const [history, setHistory] = useState([])
 
     async function getCover() {
         try {
@@ -28,9 +29,24 @@ function Home() {
         }
     }
 
+    async function getHistory() {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await api.get('/history', 
+                {headers: {
+                    Authorization: `Bearer ${token}`
+                }}
+            )
+            setHistory(response.data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     useEffect(() => {
         getCover()
         getMoreWatch()
+        getHistory()
     }, [])
 
     return (
@@ -103,6 +119,43 @@ function Home() {
                         <span> See More</span>
                     </a>
                 </div>
+            </div>
+
+            <div className="home-container">
+                <div className="title">
+                    <h2 className='home-h2'>History</h2>
+                </div>
+                <div className="grid-movie">
+                    {Array.isArray(history) && history.map(movie => (
+                        <div className='catalogo' key={movie.id}>
+                            <div className="img">
+                                <Link to={`/movie/${movie.movieId}`}>
+                                    <img src={movie.image} />
+                                </Link>
+                            </div>
+                            <div className="title">
+                                <p>{movie.title}</p>
+                            </div>
+                            <div className="note">
+                                <span>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star-half-stroke"></i>
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                {movie.length > 5 && (
+                        <div className="seemore">
+                            <a href="">
+                                <i className="fa-solid fa-circle-plus"></i>
+                                <span> See More</span>
+                            </a>
+                        </div>
+                )}
             </div>
         </>
     )

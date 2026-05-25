@@ -5,14 +5,17 @@ import api from '../../../services/api.js'
 import './layout.css'
 
 function LayoutLogin() {
+    const [active, setActive] = useState(true)
     return (
         <>
             <header className='login-header'>
                 <p>Metro<span>!</span></p>
 
                 <nav>
-                    <Link to='/login' className='login-link active'>Login</Link>
-                    <Link to='/createUser' className='login-link'>Create Account</Link>
+                    <Link to='/login' className={active ? 'login-link active' : 'login-link'}
+                        onClick={()=> setActive(true)}>Login</Link>
+                    <Link to='/createUser' className={active ? 'login-link' : 'login-link active'}
+                        onClick={()=> setActive(false)}>Create Account</Link>
                 </nav>
             </header>
 

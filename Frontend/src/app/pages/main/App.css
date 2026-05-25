@@ -59,7 +59,7 @@ body {
             border-radius: 50%;
             cursor: pointer;
 
-            background: url(../../../assets/perfil.png);
+            background: url(../../../assets/perfil.png) #121212;
             background-size: cover;
             background-position: center;
         }

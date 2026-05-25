@@ -1,5 +1,6 @@
 import db from './db.js'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 export const getUser = async (req, res) => {
     try {
@@ -62,6 +63,13 @@ export const postLogin = async (req, res) => {
 
         const receiveCryptPs = await bcrypt.compare(password, user[0].password)
 
+        const webToken = jwt.sign(
+            {
+                id: user[0].id,
+                email: user[0].email
+            }, process.env.JWT_SECRET, {expiresIn: '15d'}
+        )
+
         if(user.length === 0) {
             return res.status(400).json({message: `User do not exist`})
         }
@@ -70,13 +78,7 @@ export const postLogin = async (req, res) => {
             return res.status(400).json({message: `Password wrong`})
         }
 
-        res.status(200).json({message: `User entered`, 
-            user: {
-                id: user[0].id,
-                email: user[0].email,
-                password: user[0].password
-            }
-        })
+        res.status(200).json({message: `User entered`, token: webToken})
     } catch (error) {
         console.log(error.message)
         res.status(500).json({message: `Error server Internal`})

@@ -9,21 +9,32 @@ import CreateUser from '../login/createLogin.jsx'
 
 function App() {
 
+  function PrivateRoute({children}) {
+    const token = localStorage.getItem('token')
+
+    if(!token) {
+      return <Navigate to='login'/>
+    }
+    return children
+  }
+
   return (
     <>
       <BrowserRouter>
 
         <Routes>
           <Route element={<Layout />}>
-            <Route path='/' element={<Home />} />
-            <Route path='/movie/:id' element={<Movie />} />
+            <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+            <Route path='/movie/:id' element={<PrivateRoute><Movie /> </PrivateRoute>} />
           </Route>
 
           <Route element={<LayoutLogin />}>
             <Route path='/login' element={<Login />} />
             <Route path='/createUser' element={<CreateUser />} />
+            <Route path='/created' element={<Login />} />
           </Route>
         </Routes>
+
 
       </BrowserRouter>
     </>

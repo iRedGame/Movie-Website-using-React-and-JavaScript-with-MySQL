@@ -21,6 +21,7 @@ function Movie() {
     useEffect(() => {
         getMovie()
         moreWatch()
+        userSaveHistory()
     }, [])
 
     async function moreWatch() {
@@ -35,6 +36,19 @@ function Movie() {
         try {
             const response = await api.get(`/movies/${id}`)
             setMovie(response.data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    async function userSaveHistory() {
+        try {
+            const token = localStorage.getItem('token')
+            await api.post('/history', {movieId: id}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
         } catch (error) {
             console.log(error.message)
         }
