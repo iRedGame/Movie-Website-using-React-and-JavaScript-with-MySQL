@@ -29,7 +29,7 @@ export const getMoviesId = async (req, res) => {
 export const getLastAdd = async (req, res) => {
     try {
         const [movies] = await db.query(
-            `SELECT * FROM movies ORDER BY id DESC`
+            `SELECT * FROM movies ORDER BY id DESC LIMIT 5`
         )
         res.status(200).json(movies)
     } catch (error) {
@@ -52,7 +52,7 @@ export const getMoreWatch = async (req, res) => {
     try {
         const {id} = req.params
 
-        if(!id) return
+        if(!id) return 
         await db.query(
             `UPDATE movies 
             SET views = views + 1
@@ -82,8 +82,7 @@ export const createMovie = async (req, res) => {
 
         await db.query(
             `INSERT INTO movies (title, category, image, video)
-                    VALUES (?, ?, ?, ?)`,
-
+             VALUES (?, ?, ?, ?)`,
             [title, category, imageUpload.secure_url, videoUpload.secure_url]
         )
 

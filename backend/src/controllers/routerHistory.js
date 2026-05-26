@@ -3,9 +3,10 @@ import db from './db.js'
 export const getHistory = async (req, res) => {
     try {
         const [userWatchedMovie] = await db.query(
-            `SELECT movies.id AS movieId, movies.title, movies.image, MAX(history.watchTime) AS lastWatch FROM history 
-             JOIN movies ON history.movieId = movies.id
-             WHERE history.userId = ?
+            `SELECT movies.id AS movieId, movies.title, movies.image, history.currentTime, history.duration,
+             MAX(history.watchTime) AS lastWatch FROM history
+
+             JOIN movies ON history.movieId = movies.id WHERE history.userId = ?
              GROUP BY movies.id, movies.title, movies.image
              ORDER BY lastWatch DESC`, [req.userId]
         )
@@ -36,5 +37,22 @@ export const postHistory = async (req, res) => {
     } catch (error) {
         console.log(error.message)
         res.status(500).json({message: 'Error serve Internal'})
+    }
+}
+
+export const updateHistory = async (req, res) => {
+    try {
+        const {movieId} = req.params
+        const {currentTime, duration} = req.body
+        await db.query(
+            `UPDATE history SET currentTime = ?, duration = ? 
+             WHERE userId = ? AND movieId = ?`,
+            [currentTime, duration, req.userId, movieId]
+        )
+
+        res.status(200).json({message: `Update history`})
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({message: `Error serve Internal`})
     }
 }

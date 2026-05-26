@@ -16,13 +16,14 @@ function Movie() {
     const [duration, setDuration] = useState(0)
 
     const playerRef = useRef(null)
-    const [pec, setPec] = useState(null)
+    const [fullS, setFullS] = useState(null)
+    const lastRef = useRef(0)
 
     useEffect(() => {
         getMovie()
         moreWatch()
         userSaveHistory()
-    }, [])
+    }, [id])
 
     async function moreWatch() {
         try {
@@ -49,6 +50,29 @@ function Movie() {
                     Authorization: `Bearer ${token}`
                 }
             })
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    async function updateHistory() {
+        try {
+            const currentTime = Math.floor(videoRef.current.currentTime)
+            const duration = Math.floor(videoRef.current.duration)
+            if(!duration) return
+
+            const token = localStorage.getItem('token')
+
+            await api.put(`/history/${id}`,
+                {
+                    currentTime,
+                    duration
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
         } catch (error) {
             console.log(error.message)
         }
@@ -95,11 +119,24 @@ function Movie() {
     function Fullscreen() {
         if (!document.fullscreenElement) {
             playerRef.current.requestFullscreen()
-            setPec(1)
+            setFullS(1)
         } else {
             document.exitFullscreen()
-            setPec(null)
+            setFullS(null)
         }
+    }
+
+    function handleHistory() {
+        const currentTime = Math.floor(videoRef.current.currentTime)
+        if(currentTime % 10 === 0 && currentTime !== lastRef.current) {
+            lastRef.current = currentTime
+            updateHistory()
+        }
+    }
+
+    function callTimeUpdate() {
+        timeUpdate()
+        handleHistory()
     }
 
 
@@ -113,7 +150,7 @@ function Movie() {
                     <video
                         src={movie.video}
                         ref={videoRef}
-                        onTimeUpdate={timeUpdate}
+                        onTimeUpdate={callTimeUpdate}
                     />
                     <div className="minescreen">
                         <div className="controls">
@@ -140,7 +177,7 @@ function Movie() {
                             </p>
                             <button onClick={Fullscreen}>
                                 {
-                                    pec == null ? <i className="fa-solid fa-expand"></i> :
+                                    fullS == null ? <i className="fa-solid fa-expand"></i> :
                                         <i className="fa-solid fa-compress"></i>
                                 }
                             </button>
