@@ -13,7 +13,7 @@ export const getHistory = async (req, res) => {
         res.status(200).json(userWatchedMovie)
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: `Error serve Internal`})
+        res.status(500).json({message: `Internal serve error`})
     }
 }
 
@@ -36,7 +36,7 @@ export const postHistory = async (req, res) => {
         res.status(201).json({message: `Movie saved History`})
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: 'Error serve Internal'})
+        res.status(500).json({message: 'Internal serve error'})
     }
 }
 
@@ -53,6 +53,6 @@ export const updateHistory = async (req, res) => {
         res.status(200).json({message: `Update history`})
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: `Error serve Internal`})
+        res.status(500).json({message: `Internal serve error`})
     }
 }

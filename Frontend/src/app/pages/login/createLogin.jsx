@@ -36,7 +36,7 @@ function CreateUser() {
                         <input type="email" placeholder='Email' ref={email} />
                         <label htmlFor="">Password:</label>
                         <input type="password" placeholder='Password' ref={password} />
-                        <button type="button" onClick={postUser}>enter</button>
+                        <button type="button" className='button-login' onClick={postUser}>Enter</button>
                     </form>
                 </div>
             </div>

@@ -1,11 +1,12 @@
 
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './layout.jsx'
 import LayoutLogin from '../login/layoutLg.jsx'
 import Home from '../home/home.jsx'
 import Movie from '../movie/movie.jsx'
 import Login from '../login/login.jsx'
 import CreateUser from '../login/createLogin.jsx'
+import Fav from '../favorites/fav.jsx'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
             <Route path='/movie/:id' element={<PrivateRoute><Movie /> </PrivateRoute>} />
+            <Route path='/favorites' element={<PrivateRoute><Fav /> </PrivateRoute>}/>
           </Route>
 
           <Route element={<LayoutLogin />}>

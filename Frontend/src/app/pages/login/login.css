@@ -73,7 +73,7 @@
             font-weight: 300;
         }
 
-        & button {
+        & .button-login {
             width: 150px;
             height: 40px;
             margin: 40px 0;
@@ -85,7 +85,7 @@
             transition: 0.2s ease-in-out;
         }
 
-        & button:hover {
+        & .button-login:hover {
             background: #0253cc;
             transition: 0.2s ease-in-out;
         }

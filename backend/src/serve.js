@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import routerMovie from './router/movieRouter.js'
 import routerUser from './router/userRouter.js'
 import routerHistory from './router/history.js'
+import routerFav from './router/favorite.js'
 
 dotenv.config()
 
@@ -14,6 +15,7 @@ app.use(cors())
 app.use(routerMovie)
 app.use(routerUser)
 app.use(routerHistory)
+app.use(routerFav)
 
 app.listen(process.env.PORT, ()=> {
     console.log('Running')

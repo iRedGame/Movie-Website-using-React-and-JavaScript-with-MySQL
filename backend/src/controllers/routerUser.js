@@ -10,6 +10,7 @@ export const getUser = async (req, res) => {
         res.status(200).json(users)
     } catch (error) {
         console.log(error.message)
+        res.status(500).json({message: `Internal serve error`})
     }
 }
 
@@ -47,9 +48,7 @@ export const postUser = async (req, res) => {
         res.status(201).json({message: 'Created success'})
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({
-            message: `Erro server internal`
-        })
+        res.status(500).json({message: `Internal serve erroe`})
     }
 }
 
@@ -81,6 +80,6 @@ export const postLogin = async (req, res) => {
         res.status(200).json({message: `User entered`, token: webToken})
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: `Error server Internal`})
+        res.status(500).json({message: `Internal serve error`})
     }
 }

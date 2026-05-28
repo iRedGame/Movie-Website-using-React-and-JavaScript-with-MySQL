@@ -40,7 +40,7 @@ function Login() {
                         <input type="password" placeholder='Password'
                             onChange={(e) => {setPassword(e.target.value)}} 
                         />
-                        <button type="button" onClick={postLogin}>enter</button>
+                        <button type="button" className='button-login' onClick={postLogin}>Enter</button>
                     </form>
                 </div>
             </div>

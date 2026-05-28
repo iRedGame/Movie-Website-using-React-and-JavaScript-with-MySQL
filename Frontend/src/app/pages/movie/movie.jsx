@@ -19,10 +19,13 @@ function Movie() {
     const [fullS, setFullS] = useState(null)
     const lastRef = useRef(0)
 
+    const [fav, setFav] = useState(false)
+
     useEffect(() => {
         getMovie()
         moreWatch()
         userSaveHistory()
+        isFav()
     }, [id])
 
     async function moreWatch() {
@@ -73,6 +76,51 @@ function Movie() {
                     }
                 }
             )
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    async function postFav() {
+        try {
+            const token = localStorage.getItem('token')
+
+            if(fav) {
+                await api.delete(`/favorites/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                setFav(false)
+            } else {
+                await api.post('/favorites', {movieId: id}, 
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                )
+                setFav(true)
+            }
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    async function isFav() {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await api.get('/favorites', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            const exist = response.data.some(
+                movie => movie.id == id
+            )
+
+            setFav(exist)
         } catch (error) {
             console.log(error.message)
         }
@@ -143,8 +191,17 @@ function Movie() {
     return (
         <>
             <div className='pag'>
-                <h1>Your Move is Here </h1>
-                <h3>TITLE: {movie.title}</h3>
+                <div className='titles'>
+                    <h1>Your Move is Here </h1>
+                    <div className="title-a-fav">
+                        <h3>TITLE: {movie.title}</h3>
+                        <button type='button' className='btn-fav' onClick={postFav}>
+                            {fav ? <i className="fa-solid fa-heart"></i> :
+                                <i className="fa-regular fa-heart"></i>
+                            }
+                        </button>
+                    </div>
+                </div>
 
                 <div className='movie-container' ref={playerRef}>
                     <video

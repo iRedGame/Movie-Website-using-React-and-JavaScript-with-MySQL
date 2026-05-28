@@ -125,7 +125,7 @@ function Home() {
                 <div className="title">
                     <h2 className='home-h2'>History</h2>
                 </div>
-                <div className="grid-movie">
+                <div className="grid-movie history">
                     {Array.isArray(history) && history.map(movie => {
                         const progress = movie.duration ? (movie.currentTime / movie.duration) * 100 : 0 
                         const finalProgress = progress >= 90 ? 100 : progress
