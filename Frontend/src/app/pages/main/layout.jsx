@@ -27,14 +27,16 @@ function Layout() {
                         <button type="button" className='btn-login' onClick={()=>{setOpen(!open)}}></button>
                         {open && (
                             <div className="menu">
-                                <button type="button" className="btn-menu">
-                                    <div className="icon-btn"><i className="fa-solid fa-user"></i></div>
-                                    <div className="btn-info">My Account</div>
-                                </button>
                                 <Link to='favorites'>
                                     <button type="button" className="btn-menu">
                                         <div className="icon-btn"><i className="fa-regular fa-heart"></i></div>
                                         <div className="btn-info">Favorite</div>
+                                    </button>
+                                </Link>
+                                <Link to='config'>
+                                    <button type="button" className="btn-menu">
+                                        <div className="icon-btn"><i class="fa-solid fa-gear"></i></div>
+                                        <div className="btn-info">Settings</div>
                                     </button>
                                 </Link>
                                 <button type="button" className="btn-menu" onClick={logout}>
