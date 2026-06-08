@@ -9,7 +9,6 @@ import CreateUser from '../login/createLogin.jsx'
 import Fav from '../favorites/fav.jsx'
 import Config from '../config/config.jsx'
 import Account from '../config/pages/account.jsx'
-import Appearance from '../config/pages/appearance.jsx'
 
 function App() {
 
@@ -35,7 +34,6 @@ function App() {
             <Route path='/config' element={<PrivateRoute><Config /> </PrivateRoute>}>
               <Route index element={<Account />} />
               <Route path='account' element={<Account />} />
-              <Route path='appearance' element={<Appearance />} />
             </Route>
           </Route>
 

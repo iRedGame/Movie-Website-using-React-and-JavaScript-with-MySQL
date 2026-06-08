@@ -14,18 +14,6 @@ function Config() {
                             className={({isActive})=>isActive ? 'titles-setting active' : 'titles-setting'}>
                            <p>Account</p>
                         </NavLink>
-                        <NavLink to='appearance' 
-                            className={({isActive})=>isActive ? 'titles-setting active' : 'titles-setting'}>
-                            <p>Appearance</p>
-                        </NavLink>
-                        <NavLink to='data' 
-                            className={({isActive})=>isActive ? 'titles-setting active' : 'titles-setting'}>
-                            <p>User Data</p>
-                        </NavLink>
-                        <NavLink to='security' 
-                            className={({isActive})=>isActive ? 'titles-setting active' : 'titles-setting'}>
-                            <p>Security</p>
-                        </NavLink>
                     </nav>
                 </div>
 

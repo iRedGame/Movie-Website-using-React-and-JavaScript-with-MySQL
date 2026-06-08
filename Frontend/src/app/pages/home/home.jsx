@@ -32,10 +32,12 @@ function Home() {
     async function getHistory() {
         try {
             const token = localStorage.getItem('token')
-            const response = await api.get('/history', 
-                {headers: {
-                    Authorization: `Bearer ${token}`
-                }}
+            const response = await api.get('/history',
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             )
             setHistory(response.data)
         } catch (error) {
@@ -121,55 +123,57 @@ function Home() {
                 </div>
             </div>
 
-            <div className="home-container">
-                <div className="title">
-                    <h2 className='home-h2'>History</h2>
-                </div>
-                <div className="grid-movie history">
-                    {Array.isArray(history) && history.map(movie => {
-                        const progress = movie.duration ? (movie.currentTime / movie.duration) * 100 : 0 
-                        const finalProgress = progress >= 90 ? 100 : progress
+            {history.length > 0 && (
+                <div className="home-container">
+                    <div className="title">
+                        <h2 className='home-h2'>History</h2>
+                    </div>
+                    <div className="grid-movie history">
+                        {Array.isArray(history) && history.map(movie => {
+                            const progress = movie.duration ? (movie.currentTime / movie.duration) * 100 : 0
+                            const finalProgress = progress >= 90 ? 100 : progress
 
-                        return (
-                            <div className='catalogo' key={movie.movieId}>
-                                <div className="img">
-                                    <Link to={`/movie/${movie.movieId}`}>
-                                        <img src={movie.image} />
-                                        <div className="progress-movie">
-                                            <div className='progress-time' 
-                                                style={{
-                                                    width: `${finalProgress}%`,
-                                                    background: finalProgress === 100 ? 'green' : 'red'
-                                                }}>
+                            return (
+                                <div className='catalogo' key={movie.movieId}>
+                                    <div className="img">
+                                        <Link to={`/movie/${movie.movieId}`}>
+                                            <img src={movie.image} />
+                                            <div className="progress-movie">
+                                                <div className='progress-time'
+                                                    style={{
+                                                        width: `${finalProgress}%`,
+                                                        background: finalProgress === 100 ? 'green' : 'red'
+                                                    }}>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
+                                    </div>
+                                    <div className="title">
+                                        <p>{movie.title}</p>
+                                    </div>
+                                    <div className="note">
+                                        <span>
+                                            <i className="fa-solid fa-star"></i>
+                                            <i className="fa-solid fa-star"></i>
+                                            <i className="fa-solid fa-star"></i>
+                                            <i className="fa-solid fa-star"></i>
+                                            <i className="fa-solid fa-star-half-stroke"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="title">
-                                    <p>{movie.title}</p>
-                                </div>
-                                <div className="note">
-                                    <span>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star-half-stroke"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        )
-                })}
-                </div>
-                {movie.length > 5 && (
+                            )
+                        })}
+                    </div>
+                    {movie.length > 5 && (
                         <div className="seemore">
                             <a href="">
                                 <i className="fa-solid fa-circle-plus"></i>
                                 <span> See More</span>
                             </a>
                         </div>
-                )}
-            </div>
+                    )}
+                </div>
+            )}
         </>
     )
 }

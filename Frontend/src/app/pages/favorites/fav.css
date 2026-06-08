@@ -73,3 +73,13 @@
         }
     }
 }
+
+.message-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .message-fav {
+        color: white;
+    }
+}

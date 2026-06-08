@@ -31,9 +31,16 @@ function Fav() {
     return (
         <>
             <div className="fav-container">
-                <div className="title-fav">
-                    <h2 className='fav-h2'>Favorites</h2>
-                </div>
+                {movie.length < 1 && (
+                    <div className='message-content'>
+                        <h1 className='message-fav'>you not have movie save</h1>
+                    </div>
+                )}
+                {movie.length > 1 && (
+                    <div className="title-fav">
+                        <h2 className='fav-h2'>Favorites</h2>
+                    </div>
+                )}
                 <div className="grid-fav">
                     {movie.map(movie => (
                         <div className='card-fav' key={movie.id}>
